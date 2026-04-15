@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from './ui/button'
 import ThemeToggle from './ThemeToggle'
+import Link from 'next/link'
 
 const Navbar = () => {
   return (
@@ -8,9 +9,11 @@ const Navbar = () => {
       <h1 className='font-bold text-xl'>note<span className='text-purple-400'>bin</span></h1>
       <div className='flex gap-2 items-center'>
         <ThemeToggle />
-        <Button>
-            + New Code Snippet
-        </Button>
+        <Link href="/">
+            <Button>
+                + New Code Snippet
+            </Button>
+        </Link>
       </div>
     </nav>
   )

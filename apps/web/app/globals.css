@@ -132,3 +132,40 @@
 * {
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
+
+code {
+  counter-reset: line;
+}
+
+code .line::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 2rem;
+  margin-right: 1.5rem;
+  text-align: right;
+  color: #444;
+}
+
+.shiki {
+  background: transparent !important;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.shiki::-webkit-scrollbar {
+  height: 6px;
+}
+
+.shiki::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.shiki::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 999px;
+}
+
+.shiki::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}

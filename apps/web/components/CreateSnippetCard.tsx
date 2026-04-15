@@ -9,6 +9,7 @@ import { Button } from './ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Calendar } from './ui/calendar';
 import axios from 'axios';
+import { SUPPORTED_LANGUAGES } from '@/lib/languages';
 
 
 
@@ -67,10 +68,13 @@ const CreateSnippetCard = () => {
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
-                            <SelectItem value='html'>HTML</SelectItem>
-                            <SelectItem value='css'>CSS</SelectItem>
-                            <SelectItem value='javascript'>JavaScript</SelectItem>
-                            <SelectItem value='typescript'>TypeScript</SelectItem>
+                            {SUPPORTED_LANGUAGES.map((language) => {
+                                return (
+                                    <SelectItem key={language.value} value={language.value}>
+                                        {language.label}
+                                    </SelectItem>
+                                )
+                            })}
                         </SelectGroup>
                     </SelectContent>
                 </Select>
