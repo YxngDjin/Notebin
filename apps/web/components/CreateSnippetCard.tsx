@@ -33,9 +33,9 @@ const CreateSnippetCard = () => {
             if (!values.content || !values.title || !values.language)
                 return;
 
-            const response = await axios.post('http://localhost:3002/api/snippets', {
+            await axios.post('http://localhost:3002/api/snippets', {
             ...values,
-            expiresAt: expireDate?.toLocaleDateString("de-De")
+            expiresAt: expireDate?.toISOString()
         
         })
 
@@ -86,22 +86,16 @@ const CreateSnippetCard = () => {
         <CardContent>
             <Textarea required name='content' placeholder='Enter your Code here.' onChange={handleChange} value={values.content}/>
         </CardContent>
-        <CardFooter>
+        <CardFooter className='felx gap-4'>
             <Button variant='default' onClick={handleSubmit}>
                 Save
             </Button>
             <Popover>
-                <PopoverTrigger>
-                    <Button
-                        variant="outline"
-                        data-empty={!expireDate}
-                    >
-                        {
-                            expireDate
-                                ? expireDate.toLocaleDateString("de-DE", { day: "2-digit", month: "long", year: "numeric" })
-                                : "Expiration Date"
-                        }
-                    </Button>
+                <PopoverTrigger className="border rounded-md px-4 py-2 text-sm text-muted-foreground hover:bg-secondary">
+                    {expireDate
+                        ? expireDate.toLocaleDateString("de-DE", { day: "2-digit", month: "long", year: "numeric" })
+                        : "Expiration Date"
+                    }
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0">
                     <Calendar mode='single' selected={expireDate} onSelect={setexpireDate}/>

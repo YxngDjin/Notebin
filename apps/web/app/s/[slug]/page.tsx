@@ -6,11 +6,18 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DownloadIcon } from 'lucide-react';
 import CopyButton from '@/components/CopyButton';
+import { notFound } from 'next/navigation';
 
 const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
     const { slug } = await params;
-    const response = await axios.get(`http://localhost:3002/api/snippets/${slug}`);
-    const snippet = response.data.data;
+    
+    let snippet;
+    try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/snippets/${slug}`)
+        snippet = response.data.data;
+    } catch (e) {
+        notFound();
+    }
 
     const codeSnipped = await codeToHtml(snippet.content, {
         lang: snippet.language,

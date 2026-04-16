@@ -6,10 +6,11 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const dateFormatter = (date: string) => {
+  if (!date) return "—";
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "short",
     day: "numeric",
   }
-  return new Date(date).toLocaleDateString("de-DE", options)
+  return new Date(date.replace(' ', 'T')).toLocaleDateString("de-DE", options)
 }
