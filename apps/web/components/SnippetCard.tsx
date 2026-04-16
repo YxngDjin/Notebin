@@ -8,7 +8,7 @@ import { EyeIcon, TrashIcon } from 'lucide-react'
 
 const SnippetCard = ({ slug, title, language, expiresAt, createdAt, onDelete}: { slug: string, title: string, language: string, createdAt: string, expiresAt?: string, onDelete: () => void }) => {
   return (
-   <Card>
+   <Card className='w-full'>
     <CardHeader>
         <CardTitle className='flex gap-2 flex-col'>
             <h2 className='font-semibold text-xl'>{title}</h2>
