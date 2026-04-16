@@ -11,13 +11,21 @@ import { toast } from "sonner";
 export default function Home() {
   const [snippets, setSnippets] = useState<Snippet[]>([]);
 
+
   const fetchSnippets = async () => {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/snippets`);
     setSnippets(response.data.data)
   }
 
   useEffect(() => {
-    fetchSnippets()
+    fetchSnippets();
+    
+    const handlePageShow = (e: PageTransitionEvent) => {
+        if (e.persisted) fetchSnippets();
+    }
+    
+    window.addEventListener('pageshow', handlePageShow);
+    return () => window.removeEventListener('pageshow', handlePageShow);
   }, []);
 
   const onDelte = async (slug: string) => {
@@ -25,7 +33,7 @@ export default function Home() {
 
     if (response.status === 200) {
       setSnippets(snippets.filter(snippet => snippet.slug !== slug))
-      toast.success('Snippet Deleted Successfully')
+      toast.success('Snippet Deleted Successfully', { position: "top-center"})
     }
   }
 

@@ -49,13 +49,14 @@ const CreateSnippetCard = ({ onSuccess }: { onSuccess?: () => void}) => {
 
         
         onSuccess?.()
-        toast.success('Snippet Created')
+        toast.success('Snippet Created', { position: "top-center"})
 
 
         } catch (e) {
             console.error(e)
             toast.error("Something went wrong", {
-                description: "Please log in the Conole for more Information."
+                description: "Please log in the Conole for more Information.",
+                position: "top-center"
             })
         }
     }
