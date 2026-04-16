@@ -1,8 +1,12 @@
 {
-  "extends": "../../packages/typescript-config/base.json",
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "strict": true,
+    "skipLibCheck": true,
     "types": ["node"]
   },
   "include": ["src"],
