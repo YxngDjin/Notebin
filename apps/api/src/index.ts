@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import snippetRouter from "./routes/snippet.routes.js";
+import "./db/migrate.js";
 
 const app = express();
 

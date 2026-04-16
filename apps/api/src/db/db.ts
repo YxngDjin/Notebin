@@ -11,6 +11,7 @@ if (!fs.existsSync(dbDir)) {
 }
 
 
+
 const sqlite = new Database(path.resolve(__dirname, "../../data/sqlite.db"));
 const db = drizzle({ client: sqlite });
 
