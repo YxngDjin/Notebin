@@ -1,9 +1,9 @@
 export type Snippet = {
-    id: string
+    id: number
     title: string
     content: string
     language: string
     slug: string
-    expiresAt: string,
+    expiresAt: string | null,
     createdAt: string
 }

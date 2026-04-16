@@ -13,7 +13,8 @@ import { SUPPORTED_LANGUAGES } from '@/lib/languages';
 
 
 
-const CreateSnippetCard = () => {
+const CreateSnippetCard = ({ onSuccess }: { onSuccess?: () => void}) => {
+
     const [expireDate, setexpireDate] = useState<Date>();
     const [values, setValues] = useState({
         title: '',
@@ -33,7 +34,7 @@ const CreateSnippetCard = () => {
             if (!values.content || !values.title || !values.language)
                 return;
 
-            await axios.post('http://localhost:3002/api/snippets', {
+            await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/snippets`, {
             ...values,
             expiresAt: expireDate?.toISOString()
         
@@ -44,6 +45,9 @@ const CreateSnippetCard = () => {
             content: '',
             language: '',
         })
+
+        onSuccess?.()
+
 
         } catch (e) {
             console.log(e)

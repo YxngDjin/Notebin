@@ -6,7 +6,7 @@ import { Badge } from './ui/badge'
 import { dateFormatter } from '@/lib/utils'
 import { EyeIcon, TrashIcon } from 'lucide-react'
 
-const SnippetCard = ({ slug, title, language, expiresAt, createdAt, onDelete}: { slug: string, title: string, language: string, createdAt: string, expiresAt: string, onDelete: () => void }) => {
+const SnippetCard = ({ slug, title, language, expiresAt, createdAt, onDelete}: { slug: string, title: string, language: string, createdAt: string, expiresAt?: string, onDelete: () => void }) => {
   return (
    <Card>
     <CardHeader>
@@ -19,14 +19,13 @@ const SnippetCard = ({ slug, title, language, expiresAt, createdAt, onDelete}: {
             </div>
         </CardTitle>
         <CardAction>
-            <div className='flex flex-col gap-2 items-center'>
-                <Link
-                    href={`/s/${slug}`}
-                >   
-                    <Button variant="outline">
+            <div className='flex flex-col gap-2 items-center'> 
+                    <Button 
+                        variant="outline"
+                        render={<a href={`/s/${slug}`} />}    
+                    >
                         <EyeIcon />Show
                     </Button>
-                </Link>
                 <Button 
                     variant="destructive"
                     onClick={onDelete}
