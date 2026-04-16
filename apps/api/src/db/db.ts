@@ -7,7 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 
 
-const sqlite = new Database(path.resolve(__dirname, "../../sqlite.db"));
+const sqlite = new Database(path.resolve(__dirname, "../../data/sqlite.db"));
 const db = drizzle({ client: sqlite });
 
 export default db;
