@@ -100,12 +100,12 @@ curl -X POST http://localhost:3002/api/snippets \
 
 ## Roadmap
 
-- [ ] Frontend with Next.js + shadcn/ui
-- [ ] Syntax highlighting
+- [x] Frontend with Next.js + shadcn/ui
+- [x] Syntax highlighting
 - [ ] Share as image export
 - [ ] Password-protected snippets
 - [ ] Multi-user support with Auth
-- [ ] Docker + Docker Compose setup
+- [x] Docker + Docker Compose setup
 - [ ] PostgreSQL migration
 
 ## License
