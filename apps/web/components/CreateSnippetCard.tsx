@@ -9,7 +9,8 @@ import { Button } from './ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Calendar } from './ui/calendar';
 import axios from 'axios';
-import { SUPPORTED_LANGUAGES } from '@/lib/languages';
+import { SUPPORTED_LANGUAGES } from '@/app/constants/languages';
+import { toast } from 'sonner';
 
 
 
@@ -46,17 +47,21 @@ const CreateSnippetCard = ({ onSuccess }: { onSuccess?: () => void}) => {
             language: '',
         })
 
+        
         onSuccess?.()
+        toast.success('Snippet Created')
 
 
         } catch (e) {
-            console.log(e)
-            // Handle Error With Toast
+            console.error(e)
+            toast.error("Something went wrong", {
+                description: "Please log in the Conole for more Information."
+            })
         }
     }
 
   return (
-    <Card className='w-170'>
+    <Card className='mac-w-2xl'>
         <CardHeader>
             <CardTitle className='flex gap-3'>
                 <Input

@@ -5,6 +5,8 @@ import SnippetCard from "@/components/SnippetCard";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Snippet } from "../../../packages/types/index";
+import { toast } from "sonner";
+
 
 export default function Home() {
   const [snippets, setSnippets] = useState<Snippet[]>([]);
@@ -23,19 +25,19 @@ export default function Home() {
 
     if (response.status === 200) {
       setSnippets(snippets.filter(snippet => snippet.slug !== slug))
+      toast.success('Snippet Deleted Successfully')
     }
   }
 
   return (
-    <div className="flex flex-col gap-3 max-w-2xl mx-auto">
+    <div className="flex flex-col md:w-full max-md:px-4 gap-3 max-w-2xl mx-auto">
       <CreateSnippetCard onSuccess={fetchSnippets} />
       {/* CODESNIPPET LIST */}
-      <div className="flex mt-4 flex-col gap-4">
+      <div className="flex mt-4 w-full flex-col gap-4">
         {snippets.map((snippet) => (
           <SnippetCard key={snippet?.id} onDelete={() => onDelte(snippet?.slug)} title={snippet?.title} slug={snippet?.slug} language={snippet?.language} createdAt={snippet?.createdAt} expiresAt={snippet?.expiresAt as string} />
         ))}
       </div>
-
     </div>
   );
 }
