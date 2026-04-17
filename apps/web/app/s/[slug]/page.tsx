@@ -48,7 +48,8 @@ const Page = () => {
                 setSnippet(response.data.data);
 
                 if (response.data?.isProtected) {
-                    setIsProtected(!isProtected);
+                    setIsProtected(true);
+                    setSnippet(response.data.data);
                     toast.warning("This Snippet is Protected.", {
                         description: "Fill out the Password Form.",
                         position: "top-center"
@@ -57,12 +58,15 @@ const Page = () => {
 
             } catch (e) {
                 console.error(e);
-                toast.error("Snippet not Found", { position: "top-center"})
-                notFound()
+                if (axios.isAxiosError(e) && e.response?.status === 404) {
+                    toast.error("Snippet not Found", { position: "top-center" })
+                    notFound()
+                }
+                toast.error("Something went wrong", { position: "top-center" })
             }
         }
         fetchSnippet()
-    }, []);
+    }, [slug]);
 
     const onSubmit = async () => {
         try {
@@ -150,7 +154,11 @@ const Page = () => {
         <div className='border bg-[#1a1b26] overflow-hidden rounded-2xl '>
             <div className='flex items-center justify-between max-md:flex-row px-4 py-2 bg-[#16171f] border-b rounded-t-2xl border-white/10'>
                 <span className='text-xs text-zinc-400 font-mono'>{snippet?.language}</span>
-                <span className='text-xs text-zinc-400'>{snippet?.content.split('\n').length} lines</span>
+                {snippet?.content ? (
+                    <span className='text-xs text-zinc-400'>{snippet?.content.split('\n').length ?? 0} lines</span>
+                ): (
+                    <p></p>
+                )}
             </div>
             <div dangerouslySetInnerHTML={{ __html: highlightedCode }} />
         </div>

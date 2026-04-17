@@ -9,12 +9,14 @@ export const getAllSnippets = async (req: Request, res: Response, next: NextFunc
     try {
         const result = await db
             .select()
-            .from(snippet)
+            .from(snippet);
+
+        const data = result.map(({ hashedPassword, ...snippet }) => snippet);
 
         res.status(200).json({
             success: true,
             message: `${result.length} snippets found.`,
-            data: result
+            data: data
         })
         
     } catch (e) {
@@ -26,6 +28,7 @@ export const getAllSnippets = async (req: Request, res: Response, next: NextFunc
 export const getSnippetById = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { slug } = req.params;
+        let saveData;
 
         if (!slug || Array.isArray(slug)) {
             res.status(400).json({
@@ -52,16 +55,23 @@ export const getSnippetById = async (req: Request, res: Response, next: NextFunc
             res.status(200).json({
                 success: true,
                 isProtected: true,
-                message: "Please Enter Password."
+                message: "Please Enter Password.",
+                data: {
+                    title: result[0].title,
+                    slug: result[0].slug,
+                    language: result[0].language,
+                }
             })
             return;
         }
+
+        const { hashedPassword, ...snippetData } = result[0];
 
         res.status(200).json({
             success: true,
             isProtected: false,
             message: "Snippet found.",
-            data: result[0]
+            data: snippetData
         })
     } catch (e) {
         console.log(`Error getting snippet: ${e}`);
@@ -113,10 +123,12 @@ export const unlockSnippet = async (req: Request, res: Response, next: NextFunct
             return;
         }
 
+        const { hashedPassword, ...snippetData } = result[0];
+
         res.status(200).json({
             success: true,
             message: "Snippet found.",
-            data: result[0]
+            data: snippetData
         })
         
     } catch (e) {
@@ -138,10 +150,10 @@ export const createSnippet = async (req: Request, res: Response, next: NextFunct
         }
 
         const slug = nanoid();
-        let hashedPassword = null;
+        let hashePassword = null;
 
         if (password) {
-            hashedPassword = await hashPassword(password);
+            hashePassword = await hashPassword(password);
         }
 
         const result = await db
@@ -150,16 +162,20 @@ export const createSnippet = async (req: Request, res: Response, next: NextFunct
                 title,
                 content,
                 language,
-                hashedPassword,
+                hashedPassword: hashePassword,
                 expiresAt,
                 slug
             })
             .returning();
+
+
+        const snippetReturn = result[0];
+        const { hashedPassword, ...snippetData } = snippetReturn;
         
         res.status(201).json({
             success: true,
             message: "Snippet created.",
-            data: result
+            data: snippetData
         })
 
     } catch (e) {
