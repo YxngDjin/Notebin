@@ -8,6 +8,13 @@
       "when": 1776259446026,
       "tag": "0000_wandering_gressill",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1776368840070,
+      "tag": "0001_marvelous_victor_mancha",
+      "breakpoints": true
     }
   ]
 }

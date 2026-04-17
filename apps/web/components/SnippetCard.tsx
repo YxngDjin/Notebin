@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardAction, CardHeader, CardTitle } from './ui/card'
+import { Card, CardHeader, CardTitle } from './ui/card'
 import Link from 'next/link'
 import { Button } from './ui/button'
 import { Badge } from './ui/badge'
@@ -9,7 +9,7 @@ import { EyeIcon, TrashIcon } from 'lucide-react'
 const SnippetCard = ({ slug, title, language, expiresAt, createdAt, onDelete}: { slug: string, title: string, language: string, createdAt: string, expiresAt?: string, onDelete: () => void }) => {
   return (
    <Card className='w-full'>
-    <CardHeader>
+    <CardHeader className='flex justify-between items-center'>
         <CardTitle className='flex gap-2 flex-col'>
             <h2 className='font-semibold text-xl'>{title}</h2>
             <div className='flex gap-2 items-center'>
@@ -18,14 +18,15 @@ const SnippetCard = ({ slug, title, language, expiresAt, createdAt, onDelete}: {
                 <p className='text-xs text-muted-foreground'>{dateFormatter(createdAt)}</p>
             </div>
         </CardTitle>
-        <CardAction>
-            <div className='flex flex-col gap-2 items-center'> 
-                    <Button 
-                        variant="outline"
-                        render={<a href={`/s/${slug}`} />}    
+        <div>
+            <div className='flex gap-2 items-center'> 
+                <Link href={`/s/${slug}`} >
+                    <Button
+                        variant="outline"    
                     >
                         <EyeIcon />Show
                     </Button>
+                </Link>
                 <Button 
                     variant="destructive"
                     onClick={onDelete}
@@ -33,8 +34,7 @@ const SnippetCard = ({ slug, title, language, expiresAt, createdAt, onDelete}: {
                     <TrashIcon /> Delete
                 </Button>
             </div>
-
-        </CardAction>
+        </div>
     </CardHeader>
    </Card>
   )
