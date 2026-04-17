@@ -11,6 +11,9 @@ import { Calendar } from './ui/calendar';
 import axios from 'axios';
 import { SUPPORTED_LANGUAGES } from '@/app/constants/languages';
 import { toast } from 'sonner';
+import { Field, FieldDescription } from './ui/field';
+import { InputGroup, InputGroupAddon, InputGroupInput } from './ui/input-group';
+import { EyeIcon } from 'lucide-react';
 
 
 
@@ -21,6 +24,7 @@ const CreateSnippetCard = ({ onSuccess }: { onSuccess?: () => void}) => {
         title: '',
         content: '',
         language: '',
+        password: ''
     })
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -45,6 +49,7 @@ const CreateSnippetCard = ({ onSuccess }: { onSuccess?: () => void}) => {
             title: '',
             content: '',
             language: '',
+            password: ''
         })
 
         
@@ -95,6 +100,22 @@ const CreateSnippetCard = ({ onSuccess }: { onSuccess?: () => void}) => {
         </CardHeader>
         <CardContent>
             <Textarea required name='content' placeholder='Enter your Code here.' onChange={handleChange} value={values.content}/>
+            <Field className='max-w-sm mt-4'>
+                <InputGroup>
+                    <InputGroupInput 
+                        id='password'
+                        type='password'
+                        placeholder='Password'
+                        name='password'
+                        value={values.password}
+                        onChange={handleChange}
+                    />
+                    <InputGroupAddon align="inline-end">
+                        <EyeIcon />
+                    </InputGroupAddon>
+                </InputGroup>
+                <FieldDescription>Add Password for a Password Protected Snippet.</FieldDescription>
+            </Field>
         </CardContent>
         <CardFooter className='felx gap-4'>
             <Button variant='default' onClick={handleSubmit}>
